@@ -1,9 +1,9 @@
-# Reusable JJ config
+# Reusable config for `jj`
 
-This repo contains the `credits_roll` log template for JJ.
+This repo contains the `credits_roll` JJ log template.
 
-It is an opinionated one-liner template that tries it best to aligned revision
-descriptions and general data, limit information shown by leaving stuff implicit
+It is an opinionated one-liner template that tries its best to show aligned revision
+descriptions and data, limit information shown by leaving stuff implicit
 when it can be done without introducing unreasonable ambiguity, and use colors
 sparingly in order not to bombard you with pretty but distracting rainbows.
 
@@ -99,7 +99,7 @@ modified), except for the revisions that are not pushed yet (for which it will
 show the full stats) EXCEPT if their description's first line contains a `[standby]` "tag".
 Yeah, it can get as complicated as you want. With great power, etc., you know the gist...
 
-#### Revsets used by the template
+#### Revset aliases used by the template
 
 `credits_roll` uses internally some revset aliases, for which it defines default
 values that you can override in your `config.toml` `[revset-aliases]` section,
@@ -125,3 +125,16 @@ With its default config, the template will therefore:
 - show for each revision if it is an ancestor or a descendant of the current working
   copy (`@`), or if it lies on another branch
 
+Another batch of revset aliases are used by the template to show data fetched
+from a forge if it is available:
+
+- `ci_{pending,failure,success}`: to show an icon at the end of each line about the CI pipeline status of a commit
+- `review_{pending,failure,success}`: to show similar info about PR review statuses
+
+but these require you to add some automated way to fetch this data from you forge
+and add those revsets to your project's local JJ config.
+(I have a [nushell lib](https://github.com/YPares/monurepo/blob/master/nujj/gh.nu)
+that does that for Github with `gh`)
+
+If you don't want to bother with that you can safely ignore them, the template expects
+them to be potentially undefined.
