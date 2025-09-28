@@ -7,7 +7,7 @@ descriptions and data, limit information shown by leaving stuff implicit
 when it can be done without introducing unreasonable ambiguity, and use colors
 sparingly in order not to bombard you with pretty but distracting rainbows.
 
-![credits_roll](./credits_roll.png)
+![credits_roll_log](misc/credits_roll.png)
 
 In a nutshell, it's a template for people who like their logs neat and tidy, and value
 readability above all else (all of this being greatly subjective, of course).
@@ -27,17 +27,18 @@ log_node = "credits_roll_node"
 log = "credits_roll(0, 'none()')"
 ```
 
-This sets credit_roll to operate in its most compact form (see below for more
-information about those arguments).
+This sets the template to operate in its most compact form, without extra information compared
+to the above screeshot. See further down for more information about the arguments taken by `credits_roll`.
 
 You can also just use the template occasionally with `jj log -T "credits_roll(0, 'none()')"`.
 It's JJ anyway, you can switch templates anytime.
 
 ### Terminal width
 
-The 'width' config variable must be set for the credits_roll template
-to work as intended (until `jj` itself exposes to templates available terminal real
+⚠  **The `width` JJ config variable must be set for the credits_roll template
+to work as intended** (until `jj` itself exposes to templates available terminal real
 estate in some way).
+
 `credits_roll.toml` sets `width` to a dummy default value, but the point is
 to override it when `jj` is called, with `--config width=<terminal_width>`.
 So I am heavyhearted to announce that you are not totally done yet with basic setup.
@@ -51,13 +52,13 @@ alias jj="jj --config width=$(tput cols)"
 (`tput` is pretty standard and should already be available on your machine)
 
 This allows `credits_roll` to ensure that each revision will always fit on one
-terminal line (except for some pathologically narrow terminal windows, but
+terminal line (except for some critically narrow terminal windows, but
 you can still go pretty narrow). Notably:
 
 - Revision descriptions will be truncated to fit
-- Timestamps will only be shown if there is room for it
 - Change and commit IDs will be truncated (but *always* show enough to remain
   non-ambiguous)
+- Timestamps will only be shown if there is room for it
 
 ### Colors
 
@@ -110,13 +111,16 @@ or via `--config` on the command line:
 - `safe_heads` (`remote_bookmarks()` by default): revisions **not** reachable via
   the `safe_heads` will be highlighted in yellow in the log
 - `left_pin` (`trunk()` by default): revisions will be decorated by a dimmed arrow
-  (on the left side of the description) acting like some "smart separator" between
-  change_id and description, and that "points" towards the `left_pin` revset.
+  acting like some "smart separator" between the
+  change_id and the description, and "pointing" towards the `left_pin` revset.
   This quickly tells you, just by looking at the log of one revision, how it relates
   to the "pin" revision (is it based on it, is it reachable by it, or did it diverge from it)
 - `right_pin` (`@` by default): does the same to separate the revision description
   and the commit_id on its right, but to indicate the "path" towards another "pin"
   revision
+
+(`left_pin`/`right_pin` revsets do not have to contain one unique revision each, but it can be
+kind of confusing when they do not).
 
 With its default config, the template will therefore:
 
