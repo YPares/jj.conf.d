@@ -7,6 +7,8 @@ descriptions and data, limit information shown by leaving stuff implicit
 when it can be done without introducing unreasonable ambiguity, and use colors
 sparingly in order not to bombard you with pretty but distracting rainbows.
 
+![credits_roll](./credits_roll.png)
+
 In a nutshell, it's a template for people who like their logs neat and tidy, and value
 readability above all else (all of this being greatly subjective, of course).
 And by default `jj` already does a great job at it (I mean, you could switch
