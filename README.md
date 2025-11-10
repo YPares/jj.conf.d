@@ -116,17 +116,19 @@ or via `--config` on the command line:
 
 - `safe_heads` (`remote_bookmarks()` by default): revisions **not** reachable
   via the `safe_heads` will be highlighted in yellow in the log
-- `left_pin` (`trunk()` by default): revisions will be decorated by a dimmed
+- `left_pin` (by default: `trunk()`): revisions will be decorated by a dimmed
   arrow acting like some "smart separator" between the change_id and the
   description, and "pointing" towards the `left_pin` revset. This quickly tells
   you, just by looking at the log of one revision, how it relates to the "pin"
   revision (is it based on it, is it reachable by it, or did it diverge from it)
-- `right_pin` (`@` by default): does the same to separate the revision
-  description and the commit_id on its right, but to indicate the "path" towards
-  another "pin" revision
+- `right_pin` (by default: remote bookmark that is the closest to `@` on
+  the way to `trunk()`): separates the revision description and the commit_id.
+  Indicates the "path" towards another "pin" revision
+- `right_pin2` (by default: `@`): separates the commid_id and the timestamp.
+  Indicates the "path" towards yet another "pin" revision
 
-(`left_pin`/`right_pin` revsets do not have to contain one unique revision each,
-but it can be kind of confusing when they do not).
+(`left_pin`/`right_pin`/`right_pin2` revsets do not have to contain one unique
+revision each, but it can be kind of confusing when they do not).
 
 With its default config, the template will therefore:
 
@@ -135,6 +137,8 @@ With its default config, the template will therefore:
   work")
 - show for each revision if is based on the `trunk()`, "contained" in the
   `trunk()`, or if it is on a branch that diverged from the `trunk()`
+- show for each revision if it is an ancestor or a descendant of the remote state
+  of your current "feature branch", or if it lies on another branch
 - show for each revision if it is an ancestor or a descendant of the current
   working copy (`@`), or if it lies on another branch
 

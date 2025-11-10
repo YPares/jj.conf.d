@@ -2,7 +2,7 @@
 width = 192
 
 [colors]
-timestamp = { fg = "bright black" }
+timestamp = { fg = "bright black", italic = true }
 author = { fg = "cyan" }
 mark = { fg = "bright black" }
 pin = { fg = "bright magenta" }
@@ -11,7 +11,6 @@ current_working_copy = { reverse = true }
 "empty desc_and_refs" = { italic = true }
 "empty description" = { fg = "bright black" }
 "empty commit_id" = { italic = true }
-"empty timestamp" = { italic = true }
 node = { fg = "bright black" }
 "node unsafe" = { fg = "yellow" }
 "unsafe change_id" = { fg = "yellow" }
@@ -31,7 +30,8 @@ summary = { fg = "bright black" }
 "safe_heads" = "remote_bookmarks()"
 # Arrows will be shown in credits_roll, pointing to left & right_pin:
 "left_pin" = "trunk()"
-"right_pin" = "@"
+"right_pin" = "heads(remote_bookmarks() & (trunk()-..@))"
+"right_pin2" = "@"
 
 [template-aliases]
 "remove_merge_prefixes(str)" = '''
@@ -102,17 +102,22 @@ summary = { fg = "bright black" }
           )
         )
       ),
-        coalesce(
-          if(self.contained_in("right_pin"), label("pin","⚑")),
-          if(self.contained_in("right_pin::"), label("mark","↓")),
-          if(self.contained_in("::right_pin"), label("mark","↑")),
-          label("mark","↔")
-        ),
+      coalesce(
+        if(self.contained_in("right_pin"), label("pin","⚑")),
+        if(self.contained_in("right_pin::"), label("mark","↓")),
+        if(self.contained_in("::right_pin"), label("mark","↑")),
+        label("mark","↔")
+      ),
       format_short_id(commit_id),
-      if(width >= 75, cdots(1) ++ committer.timestamp().ago() ++ cdots(1)),
+      coalesce(
+          if(self.contained_in("right_pin2"), label("pin","⚑")),
+          if(self.contained_in("right_pin2::"), label("mark","↓")),
+          if(self.contained_in("::right_pin2"), label("mark","↑")),
+          label("mark","↔")
+      ),
+      if(width >= 75, committer.timestamp().ago()),
     )
-  )
-  ++ 
+  ) ++
   surround(" ", "",
     separate("",
       if(self.contained_in("present(ci_pending)"), "⌛"),
