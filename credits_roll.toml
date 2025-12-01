@@ -9,7 +9,7 @@ pin = { fg = "bright magenta" }
 current_working_copy = { reverse = true }
 "empty change_id" = { italic = true }
 "empty desc_and_refs" = { italic = true }
-"empty description" = { fg = "bright black" }
+"empty description" = { fg = "bright black", italic = false }
 "empty commit_id" = { italic = true }
 node = { fg = "bright black" }
 "node unsafe" = { fg = "yellow" }
@@ -34,8 +34,20 @@ summary = { fg = "bright black" }
 "right_pin2" = "@"
 
 [template-aliases]
-"remove_merge_prefixes(str)" = '''
-  str.first_line().remove_prefix("Merge ").remove_prefix("Merged ").remove_prefix("pull request ").remove_prefix("branch ")
+"compress_description(desc)" = '''
+  desc.first_line()
+    .remove_prefix("Merge ")
+    .remove_prefix("Merged ")
+    .remove_prefix("pull request ")
+    .remove_prefix("branch ")
+    .replace("[task:draft]"   , "📝")
+    .replace("[task:todo]"    , "🌑")
+    .replace("[task:wip]"     , "🌘")
+    .replace("[task:untested]", "🌗")
+    .replace("[task:review]"  , "🌖")
+    .replace("[task:done]"    , "🌕")
+    .replace("[task:blocked]" , "🔒")
+    .replace("[task:standby]" , "⁇")
 '''
 "cdots(n)" = 'label("mark", pad_start(n, "", "·"))'
 "spread_left_and_right(width, left, right)" = '''
@@ -89,7 +101,7 @@ summary = { fg = "bright black" }
             if(conflict,
               "(conflict)"),
             if(description,
-              remove_merge_prefixes(description),
+              compress_description(description),
               label("description", "(no description)")),
           ),
           separate(cdots(1),
