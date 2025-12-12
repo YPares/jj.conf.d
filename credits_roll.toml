@@ -96,7 +96,7 @@ summary = { fg = "bright black" }
         ),
       label("desc_and_refs",
         spread_left_and_right(
-          width*5/9,
+          width*13/20,
           separate(' ',
             if(conflict,
               "(conflict)"),
@@ -127,7 +127,7 @@ summary = { fg = "bright black" }
           if(self.contained_in("::right_pin2"), label("mark","↑")),
           label("mark","↔")
       ),
-      if(width >= 75, committer.timestamp().ago()),
+      if(width >= 110, committer.timestamp().ago()),
     )
   ) ++
   surround(" ", "",
