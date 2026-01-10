@@ -87,7 +87,7 @@ summary = { fg = "bright black" }
           if(self.contained_in("trunk()"), "trunk"),
         ),
     separate(label("mark", ' '),
-      format_short_change_id_with_hidden_and_divergent_info(self),
+      format_short_change_id_with_change_offset(self),
         coalesce(
           if(self.contained_in("left_pin"), label("pin","⚑")),
           if(self.contained_in("left_pin::"), label("mark","↓")),
@@ -177,7 +177,7 @@ credits_roll_node = '''
       if(!self, "🮀"),
       if(root, "┴"),
       if(conflict, "×"),
-      if(git_head, if(immutable, "◈", "◉")),
+      if(self.contained_in('first_parent(@)'), if(immutable, "◈", "◉")),
       if(empty, if(immutable, "◇", "○")),
       if(immutable, "◆"),
       "●"
