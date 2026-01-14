@@ -47,7 +47,7 @@ summary = { fg = "bright black" }
     .replace("[task:review]"  , "🌖")
     .replace("[task:done]"    , "🌕")
     .replace("[task:blocked]" , "🔒")
-    .replace("[task:standby]" , "⁇")
+    .replace("[task:standby]" , "❄ ")
 '''
 "cdots(n)" = 'label("mark", pad_start(n, "", "·"))'
 "spread_left_and_right(width, left, right)" = '''
