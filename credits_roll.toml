@@ -16,6 +16,8 @@ node = { fg = "bright black" }
 "unsafe change_id" = { fg = "yellow" }
 "unsafe commit_id" = { fg = "yellow" }
 "unsafe pin" = { fg = "yellow" }
+"minilog unsafe" = { fg = "yellow"}
+"minilog unsafe bookmarks" = { fg = "yellow"}
 prefix = { bold = false }
 "trunk change_id" = { underline = true }
 "trunk bookmarks" = { underline = true }
@@ -159,6 +161,16 @@ summary = { fg = "bright black" }
 '''
 "credits_roll(max_summary_lines, statted_revset)" = '''
   credits_roll_w(config("width").as_integer(), max_summary_lines, statted_revset)
+'''
+"minilog" = '''
+  label(
+    separate(" ",
+      "minilog",
+      if(current_working_copy, "current_working_copy"),
+      if(self.contained_in("safe_heads.."), "unsafe"),
+    ),
+    coalesce(surround('○','', bookmarks), '○')
+  )
 '''
 credits_roll_node = '''
   label(
