@@ -13,11 +13,10 @@ current_working_copy = { reverse = true }
 "empty commit_id" = { italic = true }
 node = { fg = "bright black" }
 "node unsafe" = { fg = "yellow" }
+"unsafe bookmarks" = { fg = "yellow" }
 "unsafe change_id" = { fg = "yellow" }
 "unsafe commit_id" = { fg = "yellow" }
 "unsafe pin" = { fg = "yellow" }
-"minilog unsafe" = { fg = "yellow"}
-"minilog unsafe bookmarks" = { fg = "yellow"}
 prefix = { bold = false }
 "trunk change_id" = { underline = true }
 "trunk bookmarks" = { underline = true }
@@ -165,9 +164,15 @@ summary = { fg = "bright black" }
 "minilog" = '''
   label(
     separate(" ",
-      "minilog",
+      "node",
       if(current_working_copy, "current_working_copy"),
-      if(self.contained_in("safe_heads.."), "unsafe"),
+      if(self.contained_in("trunk()"), "trunk"),
+      coalesce(
+        if(self.contained_in("safe_heads.."), "unsafe"),
+        if(self.contained_in("bookmarks() | remote_bookmarks()"),
+          "bookmarks"),
+        if(!self.mine(), "author")),
+      if(conflict, "conflict"),
     ),
     coalesce(
       if(conflict, "×"),
