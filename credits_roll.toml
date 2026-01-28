@@ -170,13 +170,11 @@ summary = { fg = "bright black" }
       if(self.contained_in("safe_heads.."), "unsafe"),
     ),
     coalesce(
-      surround("", "·", bookmarks),
       if(conflict, "×"),
-      if(self.contained_in('first_parent(@)'), if(immutable, "◈", "◉")),
       if(empty, if(immutable, "◇", "○")),
       if(immutable, "◆"),
       "●"
-    )
+    ) ++ bookmarks
   )
 '''
 credits_roll_node = '''
