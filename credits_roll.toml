@@ -169,7 +169,7 @@ summary = { fg = "bright black" }
       if(current_working_copy, "current_working_copy"),
       if(self.contained_in("safe_heads.."), "unsafe"),
     ),
-    coalesce(surround('○','', bookmarks), '○')
+    coalesce(surround("",'°', bookmarks), '○')
   )
 '''
 credits_roll_node = '''
