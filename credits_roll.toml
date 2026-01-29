@@ -179,7 +179,7 @@ summary = { fg = "bright black" }
       if(empty, if(immutable, "◇", "○")),
       if(immutable, "◆"),
       "●"
-    ) ++ bookmarks
+    ) ++ truncate_end(9, bookmarks, "…")
   )
 '''
 credits_roll_node = '''
