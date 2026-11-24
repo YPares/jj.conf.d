@@ -9,7 +9,7 @@ pin = { fg = "bright magenta" }
 current_working_copy = { reverse = true }
 "empty change_id" = { italic = true }
 "empty desc_and_refs" = { italic = true }
-"empty description" = { fg = "bright black", italic = false }
+"empty description" = { fg = "bright black" }
 "empty commit_id" = { italic = true }
 node = { fg = "bright black" }
 "node unsafe" = { fg = "yellow" }
